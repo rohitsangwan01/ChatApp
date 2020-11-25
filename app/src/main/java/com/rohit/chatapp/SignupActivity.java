@@ -23,9 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SignupActivity extends AppCompatActivity {
 
     EditText usernameSignup,emailSignup,passwordSignup;
-    TextView btnSignup;
+    TextView btnSignup,btnUpload;
     ProgressBar pgBarSignup;
     private FirebaseAuth mAuth;
+    public static boolean imgUpload  = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         passwordSignup = findViewById(R.id.passwordSignup);
         btnSignup = findViewById(R.id.btnSignup);
         pgBarSignup = findViewById(R.id.pgBarSignup);
+
 
         pgBarSignup.setVisibility(View.INVISIBLE);
 
@@ -67,7 +69,7 @@ public class SignupActivity extends AppCompatActivity {
                                         userRef.child("Password").setValue(passwordSignup.getText().toString());
                                         userRef.child("Username").setValue(usernameSignup.getText().toString());
 
-                                        startActivity(new Intent(SignupActivity.this,LoginActivity.class));
+                                        startActivity(new Intent(SignupActivity.this,UploadImage.class));
                                         finish();
 
                                         pgBarSignup.setVisibility(View.INVISIBLE);
@@ -84,6 +86,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+
 
 
 
