@@ -68,6 +68,7 @@ public class SignupActivity extends AppCompatActivity {
                                         userRef.child("Email").setValue(emailSignup.getText().toString());
                                         userRef.child("Password").setValue(passwordSignup.getText().toString());
                                         userRef.child("Username").setValue(usernameSignup.getText().toString());
+                                        userRef.child("uid").setValue(FirebaseAuth.getInstance().getUid());
 
                                         startActivity(new Intent(SignupActivity.this,UploadImage.class));
                                         finish();

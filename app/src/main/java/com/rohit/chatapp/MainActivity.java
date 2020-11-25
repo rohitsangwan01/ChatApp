@@ -2,31 +2,31 @@ package com.rohit.chatapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.rohit.chatapp.Adapter.UsersAdapter;
+import com.rohit.chatapp.Model.UserModel;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     UsersAdapter adapter;
     ImageView imageViewProfile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
         imageViewProfile = findViewById(R.id.imageViewProfile);
 
 
-
-
         Query query = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        FirebaseRecyclerOptions< UserModel > options =  new FirebaseRecyclerOptions
+        FirebaseRecyclerOptions<UserModel> options =  new FirebaseRecyclerOptions
                 .Builder< UserModel >()
                 .setQuery(query,UserModel.class)
                 .build();
+
+
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);

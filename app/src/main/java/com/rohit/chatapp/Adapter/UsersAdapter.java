@@ -1,14 +1,12 @@
-package com.rohit.chatapp;
+package com.rohit.chatapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -17,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-
-import org.w3c.dom.Text;
+import com.google.firebase.auth.FirebaseAuth;
+import com.rohit.chatapp.ChatActivity;
+import com.rohit.chatapp.Model.UserModel;
+import com.rohit.chatapp.R;
+import com.rohit.chatapp.SplashScreen;
 
 public class UsersAdapter extends FirebaseRecyclerAdapter<UserModel,UsersAdapter.ViewHolder> {
 
@@ -37,7 +38,7 @@ public class UsersAdapter extends FirebaseRecyclerAdapter<UserModel,UsersAdapter
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull UserModel model) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull final UserModel model) {
 
         holder.txtItemUser.setText(model.getUsername());
 
@@ -52,7 +53,14 @@ public class UsersAdapter extends FirebaseRecyclerAdapter<UserModel,UsersAdapter
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("Username",model.getUsername());
+                intent.putExtra("MyName", SplashScreen.MyName);
+                intent.putExtra("uid",model.getUid());
+                intent.putExtra("uid2",FirebaseAuth.getInstance().getUid());
+                intent.putExtra("url",model.getImg()) ;
+                context.startActivity(intent);
+
             }
         });
 
